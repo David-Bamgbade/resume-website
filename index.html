@@ -593,9 +593,118 @@
             }
         }
 
-        /* Add to your existing CSS */
-.code-editor pre span:last-child {
+/* Add these styles to your existing CSS */
+
+/* Hero Grid Layout */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* Code Editor Styling */
+.code-editor-container {
+    display: block;
+}
+
+.code-editor {
+    background: var(--secondary-dark);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.code-header {
+    background: #1e1e1e;
+    padding: 15px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.code-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.code-dot.red { background: #ff5f56; }
+.code-dot.yellow { background: #ffbd2e; }
+.code-dot.green { background: #27ca3f; }
+
+.code-filename {
+    color: var(--text-gray);
+    font-family: monospace;
+    font-size: 0.9rem;
+    margin-left: 20px;
+}
+
+.code-content {
+    margin: 0;
+    padding: 25px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #e6f1ff;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+/* Code Syntax Colors */
+.code-keyword { color: #569cd6; }
+.code-class { color: #4ec9b0; }
+.code-func { color: #dcdcaa; }
+.code-var { color: #9cdcfe; }
+.code-string { color: #ce9178; }
+.code-comment { color: #6a9955; }
+.code-decorator { color: #dcdcaa; }
+.code-attr { color: #9cdcfe; }
+
+/* Blinking Cursor */
+.code-cursor {
+    color: #d4d4d4;
     animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .code-editor-container {
+        order: 2; /* Move code editor below text on mobile */
+    }
+    
+    .hero-content {
+        order: 1;
+    }
+    
+    .code-content {
+        padding: 20px;
+        font-size: 0.8rem;
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .code-content {
+        padding: 15px;
+        font-size: 0.75rem;
+        min-height: 200px;
+    }
+    
+    .code-header {
+        padding: 12px 15px;
+    }
 }
 
 @keyframes blink {
@@ -626,9 +735,10 @@
     </header>
 
     <!-- Hero Section -->
+<!-- Hero Section -->
 <section id="home" class="hero">
     <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+        <div class="hero-grid">
             <!-- Your existing content -->
             <div class="hero-content">
                 <p class="hero-subtitle">Software & AI Engineer</p>
@@ -640,39 +750,41 @@
                 </div>
             </div>
             
-            <!-- New animated code editor -->
-            <div class="code-editor" style="background: var(--secondary-dark); border-radius: 10px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
-                <div style="background: #1e1e1e; padding: 15px 20px; display: flex; gap: 10px; border-bottom: 1px solid #333;">
-                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
-                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
-                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #27ca3f;"></div>
-                    <div style="color: var(--text-gray); font-family: monospace; font-size: 0.9rem; margin-left: 20px;">backend.py</div>
-                </div>
-                <pre style="margin: 0; padding: 25px; font-family: 'Monaco', 'Courier New', monospace; font-size: 0.9rem; line-height: 1.5; color: #e6f1ff; overflow: hidden;">
-<span style="color: #569cd6">from</span> fastapi <span style="color: #569cd6">import</span> FastAPI
-<span style="color: #569cd6">import</span> redis
-<span style="color: #569cd6">from</span> langgraph <span style="color: #569cd6">import</span> StateGraph
+            <!-- New animated code editor (hidden on mobile) -->
+            <div class="code-editor-container">
+                <div class="code-editor">
+                    <div class="code-header">
+                        <div class="code-dot red"></div>
+                        <div class="code-dot yellow"></div>
+                        <div class="code-dot green"></div>
+                        <div class="code-filename">backend.py</div>
+                    </div>
+                    <pre class="code-content">
+<span class="code-keyword">from</span> fastapi <span class="code-keyword">import</span> FastAPI
+<span class="code-keyword">import</span> redis
+<span class="code-keyword">from</span> langgraph <span class="code-keyword">import</span> StateGraph
 
-<span style="color: #6a9955"># Secure backend system</span>
-<span style="color: #dcdcaa">app</span> = <span style="color: #4ec9b0">FastAPI</span>()
-<span style="color: #dcdcaa">cache</span> = <span style="color: #4ec9b0">redis</span>.<span style="color: #dcdcaa">Redis</span>(<span style="color: #ce9178">host</span>=<span style="color: #ce9178">'localhost'</span>)
+<span class="code-comment"># Secure backend system</span>
+<span class="code-var">app</span> = <span class="code-class">FastAPI</span>()
+<span class="code-var">cache</span> = <span class="code-class">redis</span>.<span class="code-func">Redis</span>(<span class="code-string">host</span>=<span class="code-string">'localhost'</span>)
 
-<span style="color: #6a9955"># AI trading agent</span>
-<span style="color: #569cd6">class</span> <span style="color: #4ec9b0">TradingAgent</span>:
-    <span style="color: #569cd6">def</span> <span style="color: #dcdcaa">__init__</span>(<span style="color: #dcdcaa">self</span>):
-        <span style="color: #dcdcaa">self</span>.<span style="color: #9cdcfe">strategy</span> = <span style="color: #ce9178">"order_block"</span>
+<span class="code-comment"># AI trading agent</span>
+<span class="code-keyword">class</span> <span class="code-class">TradingAgent</span>:
+    <span class="code-keyword">def</span> <span class="code-func">__init__</span>(<span class="code-var">self</span>):
+        <span class="code-var">self</span>.<span class="code-attr">strategy</span> = <span class="code-string">"order_block"</span>
     
-    <span style="color: #569cd6">async</span> <span style="color: #569cd6">def</span> <span style="color: #dcdcaa">execute</span>(<span style="color: #dcdcaa">self</span>, <span style="color: #dcdcaa">signal</span>):
-        <span style="color: #569cd6">if</span> <span style="color: #dcdcaa">signal</span>.<span style="color: #9cdcfe">valid</span>():
-            <span style="color: #569cd6">return</span> <span style="color: #ce9178">f</span><span style="color: #ce9178">"Trading {signal.symbol}"</span>
-        <span style="color: #569cd6">return</span> <span style="color: #ce9178">"No action"</span>
+    <span class="code-keyword">async</span> <span class="code-keyword">def</span> <span class="code-func">execute</span>(<span class="code-var">self</span>, <span class="code-var">signal</span>):
+        <span class="code-keyword">if</span> <span class="code-var">signal</span>.<span class="code-func">valid</span>():
+            <span class="code-keyword">return</span> <span class="code-string">f"Trading {signal.symbol}"</span>
+        <span class="code-keyword">return</span> <span class="code-string">"No action"</span>
 
-<span style="color: #569cd6">@</span><span style="color: #dcdcaa">app</span>.<span style="color: #dcdcaa">get</span>(<span style="color: #ce9178">"/health"</span>)
-<span style="color: #569cd6">async</span> <span style="color: #569cd6">def</span> <span style="color: #dcdcaa">health_check</span>():
-    <span style="color: #569cd6">return</span> {<span style="color: #ce9178">"status"</span>: <span style="color: #ce9178">"System operational ✅"</span>}
+<span class="code-decorator">@</span><span class="code-var">app</span>.<span class="code-func">get</span>(<span class="code-string">"/health"</span>)
+<span class="code-keyword">async</span> <span class="code-keyword">def</span> <span class="code-func">health_check</span>():
+    <span class="code-keyword">return</span> {<span class="code-string">"status"</span>: <span class="code-string">"System operational ✅"</span>}
 
-<span style="color: #6a9955"># Animated cursor</span>
-<span style="color: #dcdcaa">cursor</span> = <span style="color: #4ec9b0">True</span>  <span style="color: #d4d4d4">█</span></pre>
+<span class="code-comment"># Animated cursor</span>
+<span class="code-var">cursor</span> = <span class="code-class">True</span>  <span class="code-cursor">█</span></pre>
+                </div>
             </div>
         </div>
     </div>
