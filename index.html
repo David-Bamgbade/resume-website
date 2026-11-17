@@ -1,726 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>David Bamgbade | Software & AI Engineer</title>
+
+    <meta name="description" content="David Bamgbade is a Backend Software Engineer and Applied AI Engineer building backend applications, LLM systems, RAG solutions and intelligent automation.">
+    <meta name="keywords" content="Backend Software Engineer, Applied AI Engineer, Python, Flask, FastAPI, Java, Spring Boot, Generative AI, RAG, LLM, Pinecone, Gemini, MCP, FastMCP">
+    <meta name="author" content="David Bamgbade">
+
+    <title>David Bamgbade | Backend Software & Applied AI Engineer</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="logo.png">
-    <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-dark: #0a192f;
-            --secondary-dark: #112240;
-            --accent: #64ffda;
-            --text-light: #ccd6f6;
-            --text-gray: #8892b0;
-            --white: #e6f1ff;
-            --transition: all 0.3s ease;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--text-light);
-            background-color: var(--primary-dark);
-            overflow-x: hidden;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            color: var(--white);
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent);
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* Layout */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        section {
-            padding: 100px 0;
-        }
-
-        /* Header & Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: rgba(10, 25, 47, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            transition: var(--transition);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav li {
-            margin-left: 2.5rem;
-        }
-
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--accent);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: var(--transition);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--accent);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-        }
-
-        .hero-content {
-            max-width: 700px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            cursor: pointer;
-            border: 2px solid var(--accent);
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: var(--primary-dark);
-        }
-
-        .btn-primary:hover {
-            background-color: transparent;
-            color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--accent);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(100, 255, 218, 0.1);
-            transform: translateY(-3px);
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 3rem;
-        }
-
-        .service-card {
-            background-color: var(--secondary-dark);
-            padding: 40px 30px;
-            border-radius: 10px;
-            transition: var(--transition);
-            height: 100%;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .service-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 1.5rem;
-        }
-
-        .tech-tag {
-            background-color: rgba(100, 255, 218, 0.1);
-            color: var(--accent);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-        }
-
-        /* Projects Section - Updated with your actual projects */
-        .projects-container {
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background-color: var(--secondary-dark);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 50px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-            transition: var(--transition);
-            border: 1px solid transparent;
-        }
-
-        .project-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .project-info {
-            padding: 40px;
-        }
-
-        .project-image {
-            height: 100%;
-            min-height: 300px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .project-image i {
-            font-size: 5rem;
-            color: var(--primary-dark);
-            opacity: 0.8;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 1.5rem 0;
-        }
-
-        .project-tag {
-            background-color: rgba(100, 255, 218, 0.1);
-            color: var(--accent);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .project-link i {
-            margin-left: 8px;
-            transition: var(--transition);
-        }
-
-        .project-link:hover i {
-            transform: translateX(5px);
-        }
-
-        .project-link:hover {
-            color: var(--white);
-        }
-
-        .project-tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .project-tech-list li {
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--accent);
-            background: rgba(100, 255, 218, 0.05);
-            padding: 4px 10px;
-            border-radius: 3px;
-        }
-
-        /* Process Section */
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 3rem;
-            counter-reset: step-counter;
-        }
-
-        .process-step {
-            background-color: var(--secondary-dark);
-            padding: 40px 30px;
-            border-radius: 10px;
-            position: relative;
-            counter-increment: step-counter;
-        }
-
-        .process-step::before {
-            content: "0" counter(step-counter);
-            position: absolute;
-            top: -20px;
-            left: 30px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: rgba(100, 255, 218, 0.2);
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 50px;
-            align-items: center;
-            margin-top: 3rem;
-        }
-
-        .about-image {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-        }
-
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-top: 3rem;
-        }
-
-        .contact-info {
-            padding-right: 30px;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 8px;
-            color: var(--white);
-            font-weight: 500;
-        }
-
-        .form-control {
-            padding: 15px;
-            background-color: var(--secondary-dark);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 5px;
-            color: var(--white);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .contact-details {
-            margin-top: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .contact-item i {
-            color: var(--accent);
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--secondary-dark);
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 2rem 0;
-        }
-
-        .social-links a {
-            color: var(--text-gray);
-            font-size: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            h2 {
-                font-size: 2.2rem;
-            }
-            
-            .project-card {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            nav ul {
-                position: fixed;
-                top: 70px;
-                right: -100%;
-                flex-direction: column;
-                background-color: var(--secondary-dark);
-                width: 100%;
-                height: calc(100vh - 70px);
-                padding-top: 50px;
-                transition: var(--transition);
-                z-index: 999;
-            }
-            
-            nav ul.active {
-                right: 0;
-            }
-            
-            nav li {
-                margin: 0;
-                text-align: center;
-                margin-bottom: 2rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .process-steps {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 2.3rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            section {
-                padding: 70px 0;
-            }
-            
-            .service-card, .project-info, .process-step {
-                padding: 30px 20px;
-            }
-        }
-
-/* Add these styles to your existing CSS */
-
-/* Hero Grid Layout */
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-/* Code Editor Styling */
-.code-editor-container {
-    display: block;
-}
-
-.code-editor {
-    background: var(--secondary-dark);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-
-.code-header {
-    background: #1e1e1e;
-    padding: 15px 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    border-bottom: 1px solid #333;
-}
-
-.code-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
-
-.code-dot.red { background: #ff5f56; }
-.code-dot.yellow { background: #ffbd2e; }
-.code-dot.green { background: #27ca3f; }
-
-.code-filename {
-    color: var(--text-gray);
-    font-family: monospace;
-    font-size: 0.9rem;
-    margin-left: 20px;
-}
-
-.code-content {
-    margin: 0;
-    padding: 25px;
-    font-family: 'Monaco', 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #e6f1ff;
-    overflow: hidden;
-    min-height: 300px;
-}
-
-/* Code Syntax Colors */
-.code-keyword { color: #569cd6; }
-.code-class { color: #4ec9b0; }
-.code-func { color: #dcdcaa; }
-.code-var { color: #9cdcfe; }
-.code-string { color: #ce9178; }
-.code-comment { color: #6a9955; }
-.code-decorator { color: #dcdcaa; }
-.code-attr { color: #9cdcfe; }
-
-/* Blinking Cursor */
-.code-cursor {
-    color: #d4d4d4;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .code-editor-container {
-        order: 2; /* Move code editor below text on mobile */
-    }
-    
-    .hero-content {
-        order: 1;
-    }
-    
-    .code-content {
-        padding: 20px;
-        font-size: 0.8rem;
-        min-height: 250px;
-    }
-}
-
-@media (max-width: 576px) {
-    .code-content {
-        padding: 15px;
-        font-size: 0.75rem;
-        min-height: 200px;
-    }
-    
-    .code-header {
-        padding: 12px 15px;
-    }
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">David Bamgbade</a>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <a href="#home" class="logo">David Bamgbade</a>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="navMenu">
                 <i class="fas fa-bars"></i>
             </button>
+
             <nav>
                 <ul id="navMenu">
                     <li><a href="#home">Home</a></li>
@@ -729,233 +38,486 @@
                     <li><a href="#process">Process</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="/updated_resume.pdf" target="_blank" rel="noopener noreferrer" download>Download Résumé</a></li>
+                    <li>
+                        <a href="/updated_resume.pdf" target="_blank"
+                           rel="noopener noreferrer">
+                            Download Résumé
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-<!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="container">
-        <div class="hero-grid">
-            <!-- Your existing content -->
-            <div class="hero-content">
-                <p class="hero-subtitle">Software & AI Engineer</p>
-                <h1>Build the Backbone.<br>Automate the Logic.</h1>
-                <p class="hero-description">I architect secure backend systems, intelligent AI applications, and algorithmic trading infrastructure for founders and businesses who value long-term stability over quick fixes.</p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Let's Discuss Your Project →</a>
-                </div>
-            </div>
-            
-            <!-- New animated code editor (hidden on mobile) -->
-            <div class="code-editor-container">
-                <div class="code-editor">
-                    <div class="code-header">
-                        <div class="code-dot red"></div>
-                        <div class="code-dot yellow"></div>
-                        <div class="code-dot green"></div>
-                        <div class="code-filename">backend.py</div>
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+
+                <div class="hero-content">
+                    <p class="hero-subtitle">
+                        Backend Software Engineer | Applied AI Engineer
+                    </p>
+
+                    <h1>
+                        Building Backend Systems.<br>
+                        Engineering Intelligent Applications.
+                    </h1>
+
+                    <p class="hero-description">
+                        I develop backend applications, AI-powered systems,
+                        and intelligent automation solutions. My work combines
+                        software engineering, Generative AI, LLM integration,
+                        and quantitative systems to solve practical technical
+                        and business problems.
+                    </p>
+
+                    <div class="cta-buttons">
+                        <a href="#projects" class="btn btn-primary">
+                            View My Work
+                        </a>
+
+                        <a href="#contact" class="btn btn-secondary">
+                            Let's Discuss Your Project →
+                        </a>
                     </div>
-                    <pre class="code-content">
-<span class="code-keyword">from</span> fastapi <span class="code-keyword">import</span> FastAPI
-<span class="code-keyword">import</span> redis
-<span class="code-keyword">from</span> langgraph <span class="code-keyword">import</span> StateGraph
-
-<span class="code-comment"># Secure backend system</span>
-<span class="code-var">app</span> = <span class="code-class">FastAPI</span>()
-<span class="code-var">cache</span> = <span class="code-class">redis</span>.<span class="code-func">Redis</span>(<span class="code-string">host</span>=<span class="code-string">'localhost'</span>)
-
-<span class="code-comment"># AI trading agent</span>
-<span class="code-keyword">class</span> <span class="code-class">TradingAgent</span>:
-    <span class="code-keyword">def</span> <span class="code-func">__init__</span>(<span class="code-var">self</span>):
-        <span class="code-var">self</span>.<span class="code-attr">strategy</span> = <span class="code-string">"order_block"</span>
-    
-    <span class="code-keyword">async</span> <span class="code-keyword">def</span> <span class="code-func">execute</span>(<span class="code-var">self</span>, <span class="code-var">signal</span>):
-        <span class="code-keyword">if</span> <span class="code-var">signal</span>.<span class="code-func">valid</span>():
-            <span class="code-keyword">return</span> <span class="code-string">f"Trading {signal.symbol}"</span>
-        <span class="code-keyword">return</span> <span class="code-string">"No action"</span>
-
-<span class="code-decorator">@</span><span class="code-var">app</span>.<span class="code-func">get</span>(<span class="code-string">"/health"</span>)
-<span class="code-keyword">async</span> <span class="code-keyword">def</span> <span class="code-func">health_check</span>():
-    <span class="code-keyword">return</span> {<span class="code-string">"status"</span>: <span class="code-string">"System operational ✅"</span>}
-
-<span class="code-comment"># Animated cursor</span>
-<span class="code-var">cursor</span> = <span class="code-class">True</span>  <span class="code-cursor">█</span></pre>
                 </div>
+
+                <div class="code-editor-container">
+                    <div class="code-editor">
+                        <div class="code-header">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                            <div class="code-filename">ai_system.py</div>
+                        </div>
+
+                        <pre class="code-content"><span class="code-keyword">from</span> flask <span class="code-keyword">import</span> Flask
+<span class="code-keyword">from</span> google <span class="code-keyword">import</span> genai
+<span class="code-keyword">from</span> pinecone <span class="code-keyword">import</span> Pinecone
+
+<span class="code-comment"># Applied AI and backend engineering</span>
+<span class="code-var">app</span> = <span class="code-class">Flask</span>(__name__)
+
+<span class="code-comment"># Connect AI and knowledge retrieval</span>
+<span class="code-var">ai_client</span> = <span class="code-class">genai</span>
+<span class="code-var">vector_store</span> = <span class="code-class">Pinecone</span>
+
+<span class="code-keyword">class</span> <span class="code-class">IntelligentApplication</span>:
+
+    <span class="code-keyword">def</span> <span class="code-func">process_query</span>(<span class="code-var">self</span>, query):
+        <span class="code-var">context</span> = <span class="code-var">self</span>.<span class="code-func">retrieve_context</span>(query)
+        <span class="code-keyword">return</span> <span class="code-var">self</span>.<span class="code-func">generate_response</span>(context)
+
+<span class="code-comment"># Backend systems. Applied AI. Automation.</span>
+<span class="code-var">cursor</span> = <span class="code-class">True</span> <span class="code-cursor">█</span></pre>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Services Section -->
     <section id="services">
         <div class="container">
             <h2>What I Do</h2>
+
             <div class="services-grid">
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-server"></i>
                     </div>
+
                     <h3>Backend & API Engineering</h3>
-                    <p>Secure, scalable systems from the ground up. No black boxes.</p>
+
+                    <p>
+                        Building backend applications, REST APIs, database-driven
+                        services, and application logic with an emphasis on
+                        maintainability, reliability, and sound system design.
+                    </p>
+
                     <div class="service-tech">
-                        <span class="tech-tag">Java/Spring Boot</span>
                         <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring Boot</span>
                         <span class="tech-tag">SQL</span>
-                        <span class="tech-tag">API Design</span>
-                        <span class="tech-tag">DevOps</span>
+                        <span class="tech-tag">REST APIs</span>
                     </div>
                 </div>
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <h3>AI & LLM Systems</h3>
-                    <p>Building applied AI that solves real business problems, not just demos.</p>
+
+                    <h3>Applied AI & LLM Systems</h3>
+
+                    <p>
+                        Developing AI assistants, retrieval-augmented generation
+                        applications, document intelligence systems,
+                        conversational interfaces, and tool-connected AI workflows.
+                    </p>
+
                     <div class="service-tech">
-                        <span class="tech-tag">Custom Assistants</span>
-                        <span class="tech-tag">LangGraph Agents</span>
-                        <span class="tech-tag">Prompt Engineering</span>
+                        <span class="tech-tag">Google Gemini</span>
+                        <span class="tech-tag">LLM Integration</span>
                         <span class="tech-tag">RAG</span>
-                        <span class="tech-tag">Fine-Tuning</span>
+                        <span class="tech-tag">Pinecone</span>
+                        <span class="tech-tag">NVIDIA Embeddings</span>
+                        <span class="tech-tag">LangGraph</span>
+                        <span class="tech-tag">FastMCP</span>
                     </div>
                 </div>
+
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Quantitative Trading Systems</h3>
-                    <p>Coding disciplined trading logic, tested by a trader's mindset.</p>
+
+                    <h3>Quantitative & Trading Systems</h3>
+
+                    <p>
+                        Building trading automation tools, market-data analysis
+                        applications, algorithmic trading utilities, and
+                        financial data-processing systems.
+                    </p>
+
                     <div class="service-tech">
-                        <span class="tech-tag">MQL5/MT5 Bots</span>
-                        <span class="tech-tag">Strategy Backtesting</span>
-                        <span class="tech-tag">Risk Management</span>
-                        <span class="tech-tag">FX Analysis</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MQL5</span>
+                        <span class="tech-tag">MetaTrader 5</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Financial Analysis</span>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Projects Section - NOW WITH YOUR ACTUAL WORK -->
+    <!-- Projects Section -->
     <section id="projects">
         <div class="container">
-            <h2>Some Things I've Built</h2>
-            
+            <h2>Selected Projects</h2>
+
             <div class="projects-container">
-                <!-- Project 1: ICAN Law Advisor -->
+
+                <!-- Project 1: ATSWA AI -->
                 <div class="project-card">
                     <div class="project-info">
-                        <h3>ICAN Law Advisor (AI)</h3>
+                        <h3>ATSWA AI – Interview & Assessment Platform</h3>
+
                         <div class="project-tags">
-                            <span class="project-tag">AI / LLM</span>
+                            <span class="project-tag">Applied AI</span>
                             <span class="project-tag">RAG</span>
-                            <span class="project-tag">LangGraph</span>
-                            <span class="project-tag">Legal Tech</span>
+                            <span class="project-tag">Voice AI</span>
+                            <span class="project-tag">EdTech</span>
                         </div>
-                        <p><strong>The Challenge:</strong> Create a specialized AI assistant for legal and accounting research using the ICAN law curriculum, moving beyond general-purpose chatbots.</p>
-                        <p><strong>The Solution:</strong> Built an AI assistant using Retrieval-Augmented Generation (RAG) to provide accurate, citation-backed answers from the ICAN law curriculum. Features advanced query understanding and domain-specific responses.</p>
+
+                        <p>
+                            <strong>The Challenge:</strong>
+                            Build an accounting-focused learning and assessment
+                            platform capable of answering domain-specific
+                            questions and conducting interactive interviews.
+                        </p>
+
+                        <p>
+                            <strong>The Solution:</strong>
+                            Developed an AI-powered platform using Pinecone for
+                            vector storage and semantic retrieval, NVIDIA's
+                            embedding model for embedding generation, and
+                            Google Gemini for conversational assistance.
+                            Integrated Gemini Live, Pipecat and WebRTC for
+                            real-time voice interviews, with backend-driven
+                            onboarding, interview progression and evaluation.
+                        </p>
+
                         <ul class="project-tech-list">
                             <li>Python</li>
-                            <li>LangGraph</li>
-                            <li>OpenAI</li>
-                            <li>HuggingFace</li>
-                            <li>Vector DB</li>
+                            <li>Flask</li>
+                            <li>Google GenAI SDK</li>
+                            <li>Google Gemini</li>
+                            <li>Pinecone</li>
+                            <li>NVIDIA llama-text-embed-v2</li>
+                            <li>Pipecat</li>
+                            <li>aiortc</li>
+                            <li>SmallWebRTC</li>
+                            <li>Hypercorn</li>
                         </ul>
-                        <a href="https://huggingface.co/spaces/Bamgbade/ICAN-Law-Advisor" target="_blank" class="project-link">
-                            Launch Space <i class="fas fa-external-link-alt"></i>
+
+                        <a href="https://atswai-1.onrender.com/"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-link">
+                            View Live Platform
+                            <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
-                    <div class="project-image" style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80');">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                </div>
-                
-                <!-- Project 2: Trading Signal Copier -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80');">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="project-info">
-                        <h3>Trading Signal Copier</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Quantitative Finance</span>
-                            <span class="project-tag">Automation</span>
-                            <span class="project-tag">Real-time</span>
-                            <span class="project-tag">MQL5</span>
-                        </div>
-                        <p><strong>The Challenge:</strong> Build a professional-grade automation tool for synchronizing trading signals across multiple accounts with low latency and high reliability.</p>
-                        <p><strong>The Solution:</strong> Developed a real-time signal copier with MQL5 integration, featuring advanced error handling, position synchronization, and detailed logging for institutional-grade trading operations.</p>
-                        <ul class="project-tech-list">
-                            <li>React</li>
-                            <li>Vercel</li>
-                            <li>Real-time APIs</li>
-                            <li>MQL5 Integration</li>
-                            <li>WebSockets</li>
-                        </ul>
-                        <a href="https://signalcopier.vercel.app/" target="_blank" class="project-link">
-                            View Live Demo <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Project 3: TON Project Deployer -->
-                <div class="project-card">
-                    <div class="project-info">
-                        <h3>TON Project Deployer</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Web3</span>
-                            <span class="project-tag">Blockchain</span>
-                            <span class="project-tag">TON</span>
-                            <span class="project-tag">Smart Contracts</span>
-                        </div>
-                        <p><strong>The Challenge:</strong> Create a user-friendly dashboard for deploying projects on The Open Network (TON) blockchain, simplifying smart contract interaction.</p>
-                        <p><strong>The Solution:</strong> Built a Web3 dashboard that streamlines the deployment process on TON, with smart contract interaction, metadata management, and real-time blockchain state monitoring.</p>
-                        <ul class="project-tech-list">
-                            <li>Web3.js</li>
-                            <li>React</li>
-                            <li>TON SDK</li>
-                            <li>Blockchain</li>
-                            <li>Smart Contracts</li>
-                        </ul>
-                        <a href="https://deploy-ton-project.vercel.app/" target="_blank" class="project-link">
-                            Deploy on TON <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
-                    <div class="project-image" style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80');">
-                        <i class="fas fa-cubes"></i>
+
+                    <div class="project-image"
+                         style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80');">
+                        <i class="fas fa-microphone-alt"></i>
                     </div>
                 </div>
 
-                <!-- Project 4: Tax Calculation Engine -->
+                <!-- Project 2: Support AI -->
                 <div class="project-card">
-                   <div class="project-image" style="background: linear-gradient(135deg, rgba(10,25,47,0.85) 0%, rgba(100,255,218,0.15) 100%), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'); background-size: cover; background-position: center;"></div>
+                    <div class="project-image"
+                         style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80');">
+                        <i class="fas fa-headset"></i>
+                    </div>
+
                     <div class="project-info">
-                        <h3>Tax Calculation Engine</h3>
+                        <h3>Support AI – MCP-Enabled Customer Care Chatbot</h3>
+
                         <div class="project-tags">
-                            <span class="project-tag">Fintech</span>
-                            <span class="project-tag">Financial Systems</span>
-                            <span class="project-tag">Self-Assessment</span>
-                            <span class="project-tag">React</span>
+                            <span class="project-tag">Conversational AI</span>
+                            <span class="project-tag">MCP</span>
+                            <span class="project-tag">Automation</span>
                         </div>
-                        <p><strong>The Challenge:</strong> Develop a high-precision financial tool for self-assessment tax calculations with complex logic for different tax brackets and income types.</p>
-                        <p><strong>The Solution:</strong> Engineered a tax calculation system with comprehensive logic handling, real-time calculations, and detailed breakdowns for various income scenarios and tax regulations.</p>
+
+                        <p>
+                            <strong>The Challenge:</strong>
+                            Build a customer-support assistant that can maintain
+                            conversation context and connect AI capabilities
+                            with external tools.
+                        </p>
+
+                        <p>
+                            <strong>The Solution:</strong>
+                            Developed a Flask-based customer care chatbot using
+                            Google Gemini 2.5 Flash and the Google GenAI SDK.
+                            Integrated Model Context Protocol tooling through
+                            FastMCP, alongside session-based conversation
+                            management, input validation and backend error handling.
+                        </p>
+
                         <ul class="project-tech-list">
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Fintech Logic</li>
-                            <li>Vercel</li>
-                            <li>Financial APIs</li>
+                            <li>Python</li>
+                            <li>Flask</li>
+                            <li>Google Gemini 2.5 Flash</li>
+                            <li>Google GenAI SDK</li>
+                            <li>MCP</li>
+                            <li>FastMCP</li>
+                            <li>REST APIs</li>
+                            <li>Gunicorn</li>
                         </ul>
-                        <a href="https://tax-calculation-self.vercel.app/" target="_blank" class="project-link">
-                            Run Calculator <i class="fas fa-external-link-alt"></i>
+
+                        <a href="https://supportchatbot-fj0e.onrender.com/"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-link">
+                            View Live Application
+                            <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
                 </div>
+
+                <!-- Project 3: ApexCircular -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3>ApexCircular – Regulatory Intelligence Platform</h3>
+
+                        <div class="project-tags">
+                            <span class="project-tag">Applied AI</span>
+                            <span class="project-tag">Financial Technology</span>
+                            <span class="project-tag">Data Automation</span>
+                        </div>
+
+                        <p>
+                            <strong>The Challenge:</strong>
+                            Make historical Central Bank of Nigeria circulars
+                            easier to collect, search and understand.
+                        </p>
+
+                        <p>
+                            <strong>The Solution:</strong>
+                            Developed a regulatory intelligence platform that
+                            automates RSS ingestion, document processing,
+                            deduplication and storage of CBN circulars spanning
+                            more than 20 years. Integrated Gemini-powered
+                            summaries and question answering, scheduled
+                            ingestion and REST endpoints for search and filtering.
+                        </p>
+
+                        <ul class="project-tech-list">
+                            <li>Python</li>
+                            <li>Flask</li>
+                            <li>Google Gemini API</li>
+                            <li>SQLite</li>
+                            <li>APScheduler</li>
+                            <li>Flask-CORS</li>
+                            <li>REST APIs</li>
+                            <li>RSS Feeds</li>
+                        </ul>
+
+                        <a href="https://apexcircular.onrender.com/"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-link">
+                            View Live Platform
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="project-image"
+                         style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80');">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                </div>
+
+                <!-- Project 4: ICAN Law Chatbot -->
+                <div class="project-card">
+                    <div class="project-image"
+                         style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80');">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+
+                    <div class="project-info">
+                        <h3>ICAN Nigerian Business Law Chatbot</h3>
+
+                        <div class="project-tags">
+                            <span class="project-tag">NLP</span>
+                            <span class="project-tag">LLM Fine-Tuning</span>
+                            <span class="project-tag">Legal Education</span>
+                        </div>
+
+                        <p>
+                            <strong>The Challenge:</strong>
+                            Adapt a language model to provide specialised
+                            assistance using Nigerian Business Law learning
+                            materials from ICAN.
+                        </p>
+
+                        <p>
+                            <strong>The Solution:</strong>
+                            Prepared and processed ICAN learning materials
+                            through text extraction, cleaning, segmentation
+                            and token preparation. Fine-tuned a LLaMA 3 model
+                            for domain-specific responses and deployed the
+                            application through Hugging Face.
+                        </p>
+
+                        <ul class="project-tech-list">
+                            <li>Python</li>
+                            <li>LLaMA 3</li>
+                            <li>Hugging Face</li>
+                            <li>NLP</li>
+                            <li>Fine-Tuning</li>
+                            <li>Prompt Engineering</li>
+                            <li>Document Processing</li>
+                        </ul>
+
+                        <a href="https://huggingface.co/spaces/Bamgbade/ICAN-Law-Advisor"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-link">
+                            View Hugging Face Space
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 5: Go System Monitor -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3>CPU Spike Monitor & Automated System Diagnostics</h3>
+
+                        <div class="project-tags">
+                            <span class="project-tag">Go</span>
+                            <span class="project-tag">System Monitoring</span>
+                            <span class="project-tag">Automation</span>
+                        </div>
+
+                        <p>
+                            <strong>The Challenge:</strong>
+                            Develop a lightweight utility that detects CPU
+                            spikes and captures useful system information
+                            to support troubleshooting.
+                        </p>
+
+                        <p>
+                            <strong>The Solution:</strong>
+                            Built a Go-based monitoring utility with configurable
+                            CPU thresholds and sampling intervals. Implemented
+                            spike-state tracking to avoid repeated diagnostic
+                            captures during an active spike. Generates timestamped
+                            reports containing system resource information,
+                            network details, host data and the top CPU-consuming
+                            processes.
+                        </p>
+
+                        <ul class="project-tech-list">
+                            <li>Go</li>
+                            <li>gopsutil</li>
+                            <li>JSON</li>
+                            <li>Linux System Monitoring</li>
+                            <li>Process Inspection</li>
+                            <li>Signal Handling</li>
+                        </ul>
+
+                        <a href="https://github.com/David-Bamgbade/go_monitor"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-link">
+                            View GitHub Repository
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="project-image"
+                         style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80');">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                </div>
+
+                <!-- Project 6: Nigerian Tax Calculator -->
+                <div class="project-card">
+                    <div class="project-image"
+                         style="background: linear-gradient(rgba(10,25,47,0.8), rgba(10,25,47,0.8)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80');">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+
+                    <div class="project-info">
+                        <h3>Nigerian Tax Act 2025 Calculator</h3>
+
+                        <div class="project-tags">
+                            <span class="project-tag">FinTech</span>
+                            <span class="project-tag">Financial Logic</span>
+                            <span class="project-tag">Tax Technology</span>
+                        </div>
+
+                        <p>
+                            <strong>The Challenge:</strong>
+                            Translate Nigerian tax rules into a practical
+                            calculation tool that helps users understand
+                            potential tax obligations.
+                        </p>
+
+                        <p>
+                            <strong>The Solution:</strong>
+                            Developed a tax calculation application based on
+                            the Nigerian Tax Act 2025, implementing calculation
+                            logic to process user inputs and present tax
+                            breakdowns.
+                        </p>
+
+                        <ul class="project-tech-list">
+                            <li>Python</li>
+                            <li>Financial Modelling</li>
+                            <li>Tax Calculation Logic</li>
+                            <li>Data Processing</li>
+                        </ul>
+
+                        <a href="https://tax-calculation-self.vercel.app/"
+                           target="_blank" rel="noopener noreferrer"
+                           class="project-link">
+                            View Calculator
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -964,23 +526,44 @@
     <section id="process">
         <div class="container">
             <h2>Engineering, Not Just Coding</h2>
+
             <div class="process-steps">
+
                 <div class="process-step">
                     <h3>Define</h3>
-                    <p>We start by mapping the exact problem and success criteria. Clear understanding prevents rework.</p>
+                    <p>
+                        Understand the problem, requirements, constraints
+                        and expected outcomes before implementation begins.
+                    </p>
                 </div>
+
                 <div class="process-step">
                     <h3>Design</h3>
-                    <p>I create a clear system architecture: DB schema, ERD, API contracts, flowcharts, uml diagrams. Planning is everything.</p>
+                    <p>
+                        Plan the system architecture, database structure,
+                        API contracts, application workflows and technical
+                        responsibilities.
+                    </p>
                 </div>
+
                 <div class="process-step">
                     <h3>Build</h3>
-                    <p>I write clean, documented, and testable code. No "move fast and break things" mentality here.</p>
+                    <p>
+                        Implement maintainable application logic, integrate
+                        the required technologies, and handle validation,
+                        errors and application behaviour.
+                    </p>
                 </div>
+
                 <div class="process-step">
                     <h3>Deploy & Handoff</h3>
-                    <p>You get a production-ready system, full documentation, and a clear path forward. No disappearing acts.</p>
+                    <p>
+                        Deploy the application, verify its operation and
+                        provide the documentation needed for continued
+                        maintenance and development.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -989,16 +572,45 @@
     <section id="about">
         <div class="container">
             <h2>About Me</h2>
+
             <div class="about-content">
+
                 <div class="about-image">
-                    <!-- Placeholder for your image -->
-                    <img src="image.jpg" alt="David Bamgbade" class="profile-img" style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
+                    <img src="image.jpg"
+                         alt="David Bamgbade"
+                         class="profile-img"
+                         style="width: 100%; height: 300px; object-fit: cover; border-radius: 10px;">
                 </div>
+
                 <div class="about-text">
-                    <p>I'm a problem-solver who thinks in systems. My background in both rigorous software engineering and the disciplined world of proprietary trading has shaped one core belief: great systems are built on <strong style="color: var(--accent);">clarity, security, and validated logic.</strong></p>
-                    <p>I'm not interested in superficial solutions. I partner with clients who are building something substantive and who understand that a strong technical foundation is a competitive advantage.</p>
-                    <p style="margin-top: 2rem; font-style: italic;">"When I'm not building systems, I'm usually backtesting a new trading idea or deep in research."</p>
+                    <p>
+                        I'm a Software Engineer with a focus on backend
+                        development and applied AI. I build software
+                        applications, backend services, LLM-powered systems,
+                        and automation tools that address practical problems.
+                    </p>
+
+                    <p>
+                        My technical experience includes Python, Java,
+                        JavaScript and Go, alongside backend frameworks,
+                        database technologies, Generative AI platforms,
+                        vector databases and real-time communication systems.
+                    </p>
+
+                    <p>
+                        My background in financial analysis and quantitative
+                        trading also informs my approach to software
+                        development: I value structured problem-solving,
+                        measurable logic, data-driven decisions and reliable
+                        system behaviour.
+                    </p>
+
+                    <p style="margin-top: 2rem; font-style: italic;">
+                        I enjoy working on problems where software
+                        engineering, data and intelligent automation meet.
+                    </p>
                 </div>
+
             </div>
         </div>
     </section>
@@ -1007,44 +619,73 @@
     <section id="contact">
         <div class="container">
             <h2>Let's Build Something Solid</h2>
+
             <div class="contact-container">
+
                 <div class="contact-info">
-                    <p>Have a project in mind that needs an engineer's touch? Let's discuss how we can bring clarity and robustness to your build.</p>
+                    <p>
+                        Have a software, backend or AI project in mind?
+                        Let's discuss your requirements and how I can
+                        contribute to building a practical solution.
+                    </p>
+
                     <div class="contact-details">
+
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <a href="mailto:davidbamgbade082@gmail.com" style="color: inherit; text-decoration: none; cursor: pointer;">davidbamgbade082@gmail.com</a>
+                            <a href="mailto:davidbamgbade082@gmail.com"
+                               style="color: inherit; text-decoration: none;">
+                                davidbamgbade082@gmail.com
+                            </a>
                         </div>
+
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <a href="tel:+2348169468242" style="color: inherit; text-decoration: none; cursor: pointer;">+234 816 946 8242</a>
+                            <a href="tel:+2348169468242"
+                               style="color: inherit; text-decoration: none;">
+                                +234 816 946 8242
+                            </a>
                         </div>
+
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Remote (Nigeria-based)</span>
+                            <span>Remote | Nigeria</span>
                         </div>
+
                     </div>
                 </div>
-                <form class="contact-form" action="https://formspree.io/f/mnjjypkl" method="POST">
+
+                <form class="contact-form"
+                      action="https://formspree.io/f/mnjjypkl"
+                      method="POST">
+
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
+                        <input type="text" id="name" name="name"
+                               class="form-control" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="email">Client Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email"
+                               class="form-control" required>
                     </div>
+
                     <div class="form-group">
                         <label for="message">Project Description</label>
-                        <textarea id="message" name="message" class="form-control" required></textarea>
+                        <textarea id="message" name="message"
+                                  class="form-control" required></textarea>
                     </div>
-                    <!-- Optional: Add a hidden subject or redirect -->
-                    <input type="hidden" name="_subject" value="New Contact Form Submission – Portfolio">
-                    <!-- Optional: Redirect after submit (replace with your thank-you page) -->
-                    <!-- <input type="hidden" name="_next" value="https://myautomations.vercel.app/thank-you"> -->
 
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <input type="hidden" name="_subject"
+                           value="New Contact Form Submission – Portfolio">
+
+                    <button type="submit" class="btn btn-primary">
+                        Send Message
+                    </button>
+
                 </form>
+
             </div>
         </div>
     </section>
@@ -1052,71 +693,29 @@
     <!-- Footer -->
     <footer>
         <div class="container">
+
             <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://github.com/David-Bamgbade"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+
+                <a href="https://www.linkedin.com/in/david-bammbade-b47581248/"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
             </div>
-            <p class="copyright">&copy; 2026 David Bamgbade. All rights reserved.</p>
+
+            <p class="copyright">
+                &copy; 2026 David Bamgbade. All rights reserved.
+            </p>
+
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-        
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-        
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            // In a real implementation, you would send this data to a server
-            // For now, we'll just show an alert
-            alert(`Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`);
-            
-            // Reset form
-            this.reset();
-        });
-        
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.padding = '15px 0';
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.padding = '20px 0';
-                header.style.boxShadow = 'none';
-            }
-        });
+    <script src="script.js"></script>
 
-        // Make phone number clickable on mobile
-        document.addEventListener('DOMContentLoaded', function() {
-            const phoneNumber = document.querySelector('.contact-item:nth-child(2) span');
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                phoneNumber.innerHTML = '<a href="tel:+2348169468242" style="color: inherit; text-decoration: none;">+234 816 946 8242</a>';
-            }
-        });
-    </script>
 </body>
 </html>
