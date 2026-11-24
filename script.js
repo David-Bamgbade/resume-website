@@ -1,74 +1,59 @@
-
 // ============================================
 // MOBILE MENU TOGGLE
 // ============================================
 
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navMenu = document.getElementById('navMenu');
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
 
-if (mobileMenuBtn && navMenu) {
+    if (!mobileMenuBtn || !navMenu) return;
 
-    mobileMenuBtn.addEventListener('click', () => {
+    const openMenu = () => {
+        navMenu.classList.add('active');
+        mobileMenuBtn.classList.add('menu-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+    };
 
-        const isOpen = navMenu.classList.toggle('active');
+    const closeMenu = () => {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.classList.remove('menu-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    };
 
-        mobileMenuBtn.innerHTML = isOpen
-            ? '<i class="fas fa-times"></i>'
-            : '<i class="fas fa-bars"></i>';
+    mobileMenuBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
-
+        if (navMenu.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
 
-    // Close mobile menu after selecting a navigation link
-    navMenu.querySelectorAll('a').forEach(link => {
-
-        link.addEventListener('click', () => {
-
-            navMenu.classList.remove('active');
-
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-
-            mobileMenuBtn.setAttribute('aria-expanded', 'false');
-
-        });
-
+    navMenu.addEventListener('click', (event) => {
+        if (event.target.closest('a')) {
+            closeMenu();
+        }
     });
 
-    // Close mobile menu when clicking outside navigation
     document.addEventListener('click', (event) => {
-
-        const clickedInsideMenu = navMenu.contains(event.target);
-        const clickedMenuButton = mobileMenuBtn.contains(event.target);
-
-        if (!clickedInsideMenu && !clickedMenuButton) {
-
-            navMenu.classList.remove('active');
-
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-
-            mobileMenuBtn.setAttribute('aria-expanded', 'false');
-
+        if (
+            !navMenu.contains(event.target) &&
+            !mobileMenuBtn.contains(event.target)
+        ) {
+            closeMenu();
         }
-
     });
 
-    // Close mobile menu when pressing Escape
     document.addEventListener('keydown', (event) => {
-
         if (event.key === 'Escape') {
-
-            navMenu.classList.remove('active');
-
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-
-            mobileMenuBtn.setAttribute('aria-expanded', 'false');
-
+            closeMenu();
         }
-
     });
-
-}
+});
 
 
 // ============================================
